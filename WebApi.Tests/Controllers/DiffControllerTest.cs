@@ -72,8 +72,6 @@ namespace WebApi.Tests.Controllers
             diffRepository.SaveRight("1", "TestSameSize2");
             var result = controller.Get("1");
             
-            testing broken build;
-
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual("Difference found in position 12 left side: 1 and right side: 2", result);
