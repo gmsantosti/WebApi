@@ -29,8 +29,6 @@ namespace WebApi.Controllers
         public string Get(string id)
         {
 
-            testing broken build;
-
             var diff = _diff.Get(id);
             if (diff != null)
             {
