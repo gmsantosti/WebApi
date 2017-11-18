@@ -71,7 +71,7 @@ namespace WebApi.Tests.Controllers
             diffRepository.SaveLeft("1", "TestSameSize1");
             diffRepository.SaveRight("1", "TestSameSize2");
             var result = controller.Get("1");
-            
+
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual("Difference found in position 12 left side: 1 and right side: 2", result);
@@ -92,57 +92,6 @@ namespace WebApi.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual("Difference found in position 0 left side: A and right side: B; Difference found in position 13 left side: 1 and right side: 2", result);
-        }
-
-
-
-        [TestMethod]
-        public void GetById()
-        {
-            // Arrange
-            DiffController controller = new DiffController();
-
-            // Act
-            //string result = controller.Get(5);
-
-            // Assert
-            //Assert.AreEqual("value", result);
-        }
-
-        [TestMethod]
-        public void Post()
-        {
-            // Arrange
-            DiffController controller = new DiffController();
-
-            // Act
-            // controller.Post("value");
-
-            // Assert
-        }
-
-        [TestMethod]
-        public void Put()
-        {
-            // Arrange
-            DiffController controller = new DiffController();
-
-            // Act
-            // controller.Put(5, "value");
-
-            // Assert
-        }
-
-        [TestMethod]
-        public void Delete()
-        {
-            // Arrange
-            DiffController controller = new DiffController();
-
-            // Act
-            //controller.Delete(5);
-
-            // Assert
         }
     }
 }
