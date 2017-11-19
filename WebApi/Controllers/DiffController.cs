@@ -120,16 +120,10 @@ namespace WebApi.Controllers
                 if (diff.Left.Equals(diff.Right))
                 {
                     return "same value";
-                    //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "same value");
-                    //response.Content = new StringContent("same value", Encoding.Unicode);
-                    //return response;
                 }
                 else if (diff.Left == null || diff.Right == null || diff.Left.Length != diff.Right.Length)
                 {
                     return "left and right aren't same size";
-                    //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "left and right aren't same size");
-                    //response.Content = new StringContent("left and right aren't same size", Encoding.Unicode);
-                    //return response;
                 }
                 else
                 {
@@ -142,15 +136,11 @@ namespace WebApi.Controllers
                         }
                     }
                     return string.Join("; ", differences);
-                    //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, string.Join("; ", differences));
-                    //response.Content = new StringContent(string.Join("; ", differences), Encoding.Unicode);
-                    //return response;
                 }
             }
             else
             {
                 return "This Id doesn't exist";
-                //throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound, "This Id doesn't exist"));
             }
         }
 
