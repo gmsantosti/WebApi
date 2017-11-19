@@ -114,7 +114,7 @@ namespace WebApi.Tests.Controllers
             testSetUp();
 
             // Act
-            var result = controller.PostLeftV2("1",null);
+            var result = controller.PostLeftV2("1", null);
 
             // Assert
             Assert.IsNotNull(result);
@@ -163,7 +163,7 @@ namespace WebApi.Tests.Controllers
             testSetUp();
 
             // Act
-            var result = controller.PostLeftV2(null,null);
+            var result = controller.PostLeftV2(null, null);
 
             // Assert
             Assert.IsNotNull(result);
