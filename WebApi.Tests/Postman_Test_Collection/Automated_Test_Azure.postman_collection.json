@@ -19,7 +19,7 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test((\"Resultado Correto: Difference found in position 9 left side: G and right side: 1 = \" + pm.response.text() ), function(){",
-									"    pm.expect(pm.response.text()).to.equal('\"Difference found in position 9 left side: G and right side: 1\"');",
+									"    pm.expect(pm.response.text()).to.equal(\"Difference found in position 9 left side: G and right side: 1\");",
 									"})"
 								]
 							}
@@ -98,7 +98,7 @@
 								"exec": [
 									"pm.test((\"Resultado Correto: Difference found in position 0 left side: 1 and right side: 0; Difference found in position 11 left side: 4 and right side: 0 = \"",
 									"    + pm.response.text() ), function(){",
-									"        pm.expect(pm.response.text()).to.equal('\"Difference found in position 0 left side: 1 and right side: 0; Difference found in position 11 left side: 4 and right side: 0\"');",
+									"        pm.expect(pm.response.text()).to.equal(\"Difference found in position 0 left side: 1 and right side: 0; Difference found in position 11 left side: 4 and right side: 0\");",
 									"})"
 								]
 							}
@@ -176,7 +176,7 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test((\"Resultado Correto: same value = \" + pm.response.text() ), function(){",
-									"    pm.expect(pm.response.text()).to.equal('\"same value\"');",
+									"    pm.expect(pm.response.text()).to.equal(\"same value\");",
 									"})"
 								]
 							}
@@ -254,8 +254,8 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test((\"Resultado Correto: left and right aren't same size = \" + pm.response.text() ), function(){",
-									"    //pm.expect(pm.response.text()).to.equal(\"left and right aren\"+\"'\"+\"t same size\");",
-									"    pm.expect(pm.response.text()).to.equal('\"left and right aren'+\"'\"+'t same size\"');",
+									"    pm.expect(pm.response.text()).to.equal(\"left and right aren\"+\"'\"+\"t same size\");",
+									"    //pm.expect(pm.response.text()).to.equal('\"left and right aren'+\"'\"+'t same size\"');",
 									"})"
 								]
 							}
@@ -339,7 +339,7 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test((\"Resultado Correto: Difference found in position 9 left side: G and right side: 1 = \" + pm.response.text() ), function(){",
-									"    pm.expect(pm.response.text()).to.equal('\"Difference found in position 9 left side: G and right side: 1\"');",
+									"    pm.expect(pm.response.text()).to.equal(\"Difference found in position 9 left side: G and right side: 1\");",
 									"})"
 								]
 							}
@@ -418,7 +418,7 @@
 								"exec": [
 									"pm.test((\"Resultado Correto: Difference found in position 0 left side: 1 and right side: A; Difference found in position 11 left side: 2 and right side: B = \"",
 									"    + pm.response.text() ), function(){",
-									"        pm.expect(pm.response.text()).to.equal('\"Difference found in position 0 left side: 1 and right side: A; Difference found in position 11 left side: 2 and right side: B\"');",
+									"        pm.expect(pm.response.text()).to.equal(\"Difference found in position 0 left side: 1 and right side: A; Difference found in position 11 left side: 2 and right side: B\");",
 									"})"
 								]
 							}
@@ -496,7 +496,7 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test((\"Resultado Correto: same value = \" + pm.response.text() ), function(){",
-									"    pm.expect(pm.response.text()).to.equal('\"same value\"');",
+									"    pm.expect(pm.response.text()).to.equal(\"same value\");",
 									"})"
 								]
 							}
@@ -574,8 +574,8 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test((\"Resultado Correto: left and right aren't same size = \" + pm.response.text() ), function(){",
-									"    //pm.expect(pm.response.text()).to.equal(\"left and right aren\"+\"'\"+\"t same size\");",
-									"    pm.expect(pm.response.text()).to.equal('\"left and right aren'+\"'\"+'t same size\"');",
+									"    pm.expect(pm.response.text()).to.equal(\"left and right aren\"+\"'\"+\"t same size\");",
+									"    //pm.expect(pm.response.text()).to.equal('\"left and right aren'+\"'\"+'t same size\"');",
 									"})"
 								]
 							}
@@ -658,9 +658,17 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
+									"pm.test(\"Resultado Correto: This Id doesn't exist = \" + pm.response.text(), function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.Message).to.eql(\"This Id doesn\"+\"'\"+\"t exist\");",
+									"});",
+									"",
+									"/*",
 									"pm.test((\"Resultado Correto: This Id doesn't exist = \" + pm.response.text() ), function(){",
-									"    pm.expect(pm.response.text()).to.equal('\"This Id doesn'+\"'\"+'t exist\"');",
-									"})"
+									"    //pm.expect(pm.response.text()).to.equal('\"This Id doesn'+\"'\"+'t exist\"');",
+									"    pm.expect(pm.response.text()).to.equal(\"This Id doesn\"+\"'\"+\"t exist\");",
+									"})",
+									"*/"
 								]
 							}
 						}
@@ -709,14 +717,15 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"/*pm.test(\"Resultado Correto: Text can not be null = \" + pm.response.text(), function () {",
+									"pm.test(\"Resultado Correto: Text can not be null = \" + pm.response.text(), function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.Message).to.eql(\"Text can not be null\");",
-									"});*/",
-									"",
+									"});",
+									"/*",
 									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
 									"    pm.expect(pm.response.text()).to.equal('\"Text can not be null\"');",
-									"})"
+									"})",
+									"*/"
 								]
 							}
 						}
@@ -760,14 +769,15 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
-									"});*/",
-									"",
+									"});",
+									"/*",
 									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
 									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
-									"})"
+									"})",
+									"*/"
 								]
 							}
 						}
@@ -811,14 +821,15 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
-									"});*/",
-									"",
+									"});",
+									"/*",
 									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
 									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
-									"})"
+									"})",
+									"*/"
 								]
 							}
 						}
@@ -914,14 +925,15 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"/*pm.test(\"Resultado Correto: Text can not be null = \" + pm.response.text(), function () {",
+									"pm.test(\"Resultado Correto: Text can not be null = \" + pm.response.text(), function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.Message).to.eql(\"Text can not be null\");",
-									"});*/",
-									"",
+									"});",
+									"/*",
 									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
 									"    pm.expect(pm.response.text()).to.equal('\"Text can not be null\"');",
-									"})"
+									"})",
+									"*/"
 								]
 							}
 						}
@@ -965,14 +977,15 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
-									"});*/",
-									"",
+									"});",
+									"/*",
 									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
 									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
-									"})"
+									"})",
+									"*/"
 								]
 							}
 						}
@@ -1016,14 +1029,15 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
-									"});*/",
-									"",
+									"});",
+									"/*",
 									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
 									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
-									"})"
+									"})",
+									"*/"
 								]
 							}
 						}
@@ -1077,10 +1091,10 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
 						],
 						"body": {
 							"mode": "raw",
