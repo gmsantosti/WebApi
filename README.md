@@ -8,7 +8,7 @@ This is a test webApi project which includes unit tests and also a postman colle
 
 # Achieves
 1. Solution was created;
-2. Unit test were created covering PostLeft, PostRight and Get methods;
+2. Unit tests were created covering PostLeft, PostRight and Get methods;
 3. Azure was used to deploy this application and was configured with continuous integration mapping github repository;
 4. Postman was used to create and configure automated tests which contains pre-request scripts and expected results;
 
