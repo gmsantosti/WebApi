@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Http;
+using WebApi.Models;
 using WebApi.Repositories;
 
 namespace WebApi.Controllers
@@ -32,28 +33,29 @@ namespace WebApi.Controllers
         /// <param name="base64Data"></param>
         /// <returns></returns>
         [Route("v1/diff/{id}/leftV2")]
-        public HttpResponseMessage PostLeftV2(string id, [FromBody]string base64Data)
+        public string PostLeftV2(string id, [FromBody]string base64Data)
         {
-            try
+            if (id == null)
             {
-                if (base64Data==null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text can not be null");
-                }
-                else if (!IsBase64String(base64Data))
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text must be in base64 format");
-                }
-                else
-                {
-                    _diff.SaveLeft(id, base64Data);
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, base64Data + " was saved on left side");
-                    return response;
-                }
+                return "Id can not be null";
+                //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Id can not be null");
             }
-            catch (Exception ex)
+            else if (base64Data == null)
             {
-                throw ex;
+                return "Text can not be null";
+                //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text can not be null");
+            }
+            else if (!IsBase64String(base64Data))
+            {
+                return "Text must be in base64 format";
+                //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text must be in base64 format");
+            }
+            else
+            {
+                _diff.SaveLeft(id, base64Data);
+                return base64Data + " was saved on left side";
+                //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, base64Data + " was saved on left side");
+                //return response;
             }
         }
 
@@ -69,34 +71,35 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// This method is used to post base64Data on the left side to be compared, using HttpResponseMessage method
+        /// This method is used to post base64Data on the right side to be compared, using HttpResponseMessage method
         /// </summary>
         /// <param name="id"></param>
         /// <param name="base64Data"></param>
         /// <returns></returns>
         [Route("v1/diff/{id}/rightV2")]
-        public HttpResponseMessage PostRightV2(string id, [FromBody]string base64Data)
+        public string PostRightV2(string id, [FromBody]string base64Data)
         {
-            try
+            if (id == null)
             {
-                if (base64Data == null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text can not be null");
-                }
-                else if (!IsBase64String(base64Data))
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text must be in base64 format");
-                }
-                else
-                {
-                    _diff.SaveRight(id, base64Data);
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, base64Data + " was saved on right side");
-                    return response;
-                }
+                return "Id can not be null";
+                //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Id can not be null");
             }
-            catch (Exception ex)
+            else if (base64Data == null)
             {
-                throw ex;
+                return "Text can not be null";
+                //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text can not be null");
+            }
+            else if (!IsBase64String(base64Data))
+            {
+                return "Text must be in base64 format";
+                //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text must be in base64 format");
+            }
+            else
+            {
+                _diff.SaveRight(id, base64Data);
+                return base64Data + " was saved on right side";
+                //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, base64Data + " was saved on left side");
+                //return response;
             }
         }
 
@@ -109,22 +112,24 @@ namespace WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("v1/diff/{id}")]
-        public HttpResponseMessage Get(string id)
+        public string Get(string id)
         {
             var diff = _diff.Get(id);
             if (diff != null)
             {
                 if (diff.Left.Equals(diff.Right))
                 {
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "same value");
-                    response.Content = new StringContent("same value", Encoding.Unicode);
-                    return response;
+                    return "same value";
+                    //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "same value");
+                    //response.Content = new StringContent("same value", Encoding.Unicode);
+                    //return response;
                 }
                 else if (diff.Left == null || diff.Right == null || diff.Left.Length != diff.Right.Length)
                 {
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "left and right aren't same size");
-                    response.Content = new StringContent("left and right aren't same size", Encoding.Unicode);
-                    return response;
+                    return "left and right aren't same size";
+                    //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "left and right aren't same size");
+                    //response.Content = new StringContent("left and right aren't same size", Encoding.Unicode);
+                    //return response;
                 }
                 else
                 {
@@ -136,14 +141,16 @@ namespace WebApi.Controllers
                             differences.Add("Difference found in position " + i + " left side: " + diff.Left[i] + " and right side: " + diff.Right[i]);
                         }
                     }
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, string.Join("; ", differences));
-                    response.Content = new StringContent(string.Join("; ", differences), Encoding.Unicode);
-                    return response;
+                    return string.Join("; ", differences);
+                    //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, string.Join("; ", differences));
+                    //response.Content = new StringContent(string.Join("; ", differences), Encoding.Unicode);
+                    //return response;
                 }
             }
             else
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound, "This Id doesn't exist"));
+                return "This Id doesn't exist";
+                //throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound, "This Id doesn't exist"));
             }
         }
 
