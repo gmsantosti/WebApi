@@ -1,0 +1,1111 @@
+{
+	"info": {
+		"name": "Waes - Test Automated Azure",
+		"_postman_id": "eb56eb2b-5d0d-c300-861e-971e30380a1d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get - using post V1",
+			"description": "",
+			"item": [
+				{
+					"name": "1.1 - Validate one difference - PostV1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: Difference found in position 9 left side: G and right side: 1 = \" + pm.response.text() ), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Difference found in position 9 left side: G and right side: 1\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/1/left',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"dGVzdDJuZG8y\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/1/right',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"dGVzdDJuZ18y\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/1",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "2.1 - Validate two differences- PostV1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: Difference found in position 0 left side: 1 and right side: 0; Difference found in position 11 left side: 4 and right side: 0 = \"",
+									"    + pm.response.text() ), function(){",
+									"        pm.expect(pm.response.text()).to.equal('\"Difference found in position 0 left side: 1 and right side: 0; Difference found in position 11 left side: 4 and right side: 0\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/2/left',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"1234abcd1234\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res);",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/2/right',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"0234abcd1230\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "3.1 - Validate same base64Data- PostV1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: same value = \" + pm.response.text() ), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"same value\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/3/left',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"1234abcd\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/3/right',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"1234abcd\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/3",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"3"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "4.1 - Validate different size- PostV1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: left and right aren't same size = \" + pm.response.text() ), function(){",
+									"    //pm.expect(pm.response.text()).to.equal(\"left and right aren\"+\"'\"+\"t same size\");",
+									"    pm.expect(pm.response.text()).to.equal('\"left and right aren'+\"'\"+'t same size\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/4/left',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"1234\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/4/right',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"12345678\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/4",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get - using post V2",
+			"description": "",
+			"item": [
+				{
+					"name": "1.2 - Validate one difference - PostV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: Difference found in position 9 left side: G and right side: 1 = \" + pm.response.text() ), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Difference found in position 9 left side: G and right side: 1\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/1/leftV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"dGVzdDJuZG8y\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/1/rightV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"dGVzdDJuZ18y\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/1",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 - Validate two differences- PostV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: Difference found in position 0 left side: 1 and right side: A; Difference found in position 11 left side: 2 and right side: B = \"",
+									"    + pm.response.text() ), function(){",
+									"        pm.expect(pm.response.text()).to.equal('\"Difference found in position 0 left side: 1 and right side: A; Difference found in position 11 left side: 2 and right side: B\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/2/leftV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"1GVzdDJuZG82\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/2/rightV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"AGVzdDJuZG8B\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 - Validate same base64Data- PostV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: same value = \" + pm.response.text() ), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"same value\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/3/leftV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"1234abcd\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/3/rightV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"1234abcd\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/3",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"3"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "4.2 - Validate different size- PostV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: left and right aren't same size = \" + pm.response.text() ), function(){",
+									"    //pm.expect(pm.response.text()).to.equal(\"left and right aren\"+\"'\"+\"t same size\");",
+									"    pm.expect(pm.response.text()).to.equal('\"left and right aren'+\"'\"+'t same size\"');",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const echoPostRequestLeft = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/4/leftV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"abcd1234\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestLeft, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});",
+									"",
+									"const echoPostRequestRight = {",
+									"  url: 'http://webapiguitest.azurewebsites.net/v1/diff/4/rightV2',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: '\"abcd12345678\"'",
+									"  }",
+									"};",
+									"pm.sendRequest(echoPostRequestRight, function (err, res) {",
+									"  console.log(err ? err : res.json());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/4",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get - Common",
+			"description": "",
+			"item": [
+				{
+					"name": "5 - Validate null ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: This Id doesn't exist = \" + pm.response.text() ), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"This Id doesn'+\"'\"+'t exist\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ }"
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/5",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"5"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post - left V2",
+			"description": "",
+			"item": [
+				{
+					"name": "6.1 - Validate null text - LeftV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"/*pm.test(\"Resultado Correto: Text can not be null = \" + pm.response.text(), function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.Message).to.eql(\"Text can not be null\");",
+									"});*/",
+									"",
+									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Text can not be null\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/6/leftV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"6",
+								"leftV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "6.2.1 - Validate text not base64 - LeftV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
+									"});*/",
+									"",
+									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"1234abcd567\""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/6/leftV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"6",
+								"leftV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "6.2.2 - Validate text not base64 - LeftV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
+									"});*/",
+									"",
+									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"1/2*3*4-\""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/6/leftV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"6",
+								"leftV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "6.3 - Validate success - LeftV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: 1234 was saved on left side = \" + pm.response.text() ), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"1234 was saved on left side\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"1234\""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/6/leftV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"6",
+								"leftV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post - right V2",
+			"description": "",
+			"item": [
+				{
+					"name": "7.1 - Validate null text - RightV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"/*pm.test(\"Resultado Correto: Text can not be null = \" + pm.response.text(), function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.Message).to.eql(\"Text can not be null\");",
+									"});*/",
+									"",
+									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Text can not be null\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/7/rightV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"7",
+								"rightV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "7.2.1 - Validate text not base64 - RightV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
+									"});*/",
+									"",
+									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"1234abcd567\""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/7/rightV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"7",
+								"rightV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "7.2.2 - Validate text not base64 - RightV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"/*pm.test(\"Resultado Correto: Text must be base64 format = \" + pm.response.text(), function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.Message).to.eql(\"Text must be in base64 format\");",
+									"});*/",
+									"",
+									"pm.test((\"Resultado Correto: Text can not be null = \" + pm.response.text()), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"Text must be in base64 format\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"1/2*3*4-\""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/7/rightV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"7",
+								"rightV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "7.3 - Validate success - RightV2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test((\"Resultado Correto: 1234 was saved on right side = \" + pm.response.text() ), function(){",
+									"    pm.expect(pm.response.text()).to.equal('\"1234 was saved on right side\"');",
+									"})"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"1234\""
+						},
+						"url": {
+							"raw": "http://webapiguitest.azurewebsites.net/v1/diff/7/rightV2",
+							"protocol": "http",
+							"host": [
+								"webapiguitest",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"v1",
+								"diff",
+								"7",
+								"rightV2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

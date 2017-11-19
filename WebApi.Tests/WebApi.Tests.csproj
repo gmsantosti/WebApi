@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Postman_Test_Collection\Automated_Test_Azure.postman_collection.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
