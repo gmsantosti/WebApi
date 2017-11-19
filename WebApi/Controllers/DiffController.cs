@@ -36,15 +36,19 @@ namespace WebApi.Controllers
         {
             try
             {
-                if (base64Data!=null && IsBase64String(base64Data))
+                if (base64Data==null)
                 {
-                    _diff.SaveLeft(id, base64Data);
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, base64Data+" was saved on left side");
-                    return response;
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text can not be null");
+                }
+                else if (!IsBase64String(base64Data))
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text must be in base64 format");
                 }
                 else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text is null or is not in base64 format");
+                    _diff.SaveLeft(id, base64Data);
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, base64Data + " was saved on left side");
+                    return response;
                 }
             }
             catch (Exception ex)
@@ -75,15 +79,19 @@ namespace WebApi.Controllers
         {
             try
             {
-                if (base64Data != null && IsBase64String(base64Data))
+                if (base64Data == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text can not be null");
+                }
+                else if (!IsBase64String(base64Data))
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text must be in base64 format");
+                }
+                else
                 {
                     _diff.SaveRight(id, base64Data);
                     HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, base64Data + " was saved on right side");
                     return response;
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Text is null or is not in base64 format");
                 }
             }
             catch (Exception ex)
@@ -101,18 +109,22 @@ namespace WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("v1/diff/{id}")]
-        public string Get(string id)
+        public HttpResponseMessage Get(string id)
         {
             var diff = _diff.Get(id);
             if (diff != null)
             {
                 if (diff.Left.Equals(diff.Right))
                 {
-                    return "same value";
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "same value");
+                    response.Content = new StringContent("same value", Encoding.Unicode);
+                    return response;
                 }
                 else if (diff.Left == null || diff.Right == null || diff.Left.Length != diff.Right.Length)
                 {
-                    return "left and right aren't same size";
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "left and right aren't same size");
+                    response.Content = new StringContent("left and right aren't same size", Encoding.Unicode);
+                    return response;
                 }
                 else
                 {
@@ -124,7 +136,9 @@ namespace WebApi.Controllers
                             differences.Add("Difference found in position " + i + " left side: " + diff.Left[i] + " and right side: " + diff.Right[i]);
                         }
                     }
-                    return string.Join("; ", differences);
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, string.Join("; ", differences));
+                    response.Content = new StringContent(string.Join("; ", differences), Encoding.Unicode);
+                    return response;
                 }
             }
             else
